@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "es2016",
+      "esnext.asynciterable"
+    ],
+    "module": "commonjs",
+    "outDir": "dist",
+    "strictPropertyInitialization": false,
+    "target": "es2016"
+  },
+  "extends": "../../tsconfig.base.json",
+  "include": ["src", "typeorm-config.ts"]
+}

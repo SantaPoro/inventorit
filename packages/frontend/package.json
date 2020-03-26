@@ -1,0 +1,25 @@
+{
+  "name": "@trello-burndown/frontend",
+  "version": "0.0.0",
+  "repository": "trello-burndown/frontend",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "parcel build public/index.html",
+    "dev": "parcel -p 3000 --hmr-port 1234 watch public/index.html",
+    "lint": "eslint . --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@types/parcel-env": "^0.0.0",
+    "@types/react": "^16.9.25",
+    "@types/react-dom": "^16.9.5",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
+    "parcel-bundler": "^1.12.4"
+  }
+}

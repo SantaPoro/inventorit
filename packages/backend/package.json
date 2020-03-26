@@ -1,0 +1,20 @@
+{
+	"name": "@trello-burndown/backend",
+	"version": "0.0.0",
+	"repository": "trello-burndown/backdown",
+	"main": "lib/index.js",
+	"license": "MIT",
+	"private": true,
+	"scripts": {
+		"build": "tsc",
+		"dev": "ts-node-dev --respawn --transpileOnly src/index.ts",
+		"lint": "yarn eslint . --ext .ts --fix",
+		"start": "node dist/index.js"
+	},
+	"dependencies": {
+	},
+	"devDependencies": {
+		"@types/node": "^12.12.31",
+		"ts-node-dev": "^1.0.0-pre.44"
+	}
+}
