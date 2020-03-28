@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Title from './components/app';
 
-ReactDOM.render(<div>Hello React</div>, document.getElementById('root'));
+ReactDOM.render(<Title name="Inventori" />, document.getElementById('root'));
 
 if (module.hot) {
 	module.hot.accept();
