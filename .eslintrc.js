@@ -18,7 +18,6 @@ module.exports = {
 		'@typescript-eslint/member-ordering': 'error',
 		'@typescript-eslint/no-explicit-any': 'off',
 		'@typescript-eslint/no-empty-interface': 'off',
-		'sort-keys': ['error', 'asc', { caseSensitive: true, natural: true }],
 		'sort-imports': [
 			'error',
 			{

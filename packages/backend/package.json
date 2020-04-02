@@ -14,12 +14,15 @@
 	"dependencies": {
 		"@types/graphql": "^14.5.0",
 		"apollo-server": "^2.11.0",
+		"dotenv": "^8.2.0",
 		"graphql": "^14.6.0",
+		"pg": "^7.18.2",
 		"reflect-metadata": "^0.1.13",
-		"remove": "^0.1.5",
-		"type-graphql": "^0.17.6"
+		"type-graphql": "^0.17.6",
+		"typeorm": "^0.2.24"
 	},
 	"devDependencies": {
+		"@types/dotenv": "^8.2.0",
 		"@types/graphql": "^14.5.0",
 		"@types/node": "^12.12.31",
 		"ts-node-dev": "^1.0.0-pre.44"
