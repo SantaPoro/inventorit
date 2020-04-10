@@ -7,7 +7,7 @@ interface Props {
 const Title: React.FC<Props> = ({ name }) => {
 	return (
 		<div>
-			<h1>InventorIT: {name} asdf 123asdasd</h1>
+			<h1>InventorIT: {name}IT</h1>
 		</div>
 	);
 };
