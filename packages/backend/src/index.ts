@@ -1,7 +1,9 @@
 import 'reflect-metadata';
-import createApolloServer from './apollo';
-import { createConnection } from 'typeorm';
+
 import dotenv from 'dotenv';
+import { createConnection } from 'typeorm';
+
+import createApolloServer from './apollo';
 
 dotenv.config();
 
