@@ -13,6 +13,6 @@ export default class User {
 	@Field()
 	name: string;
 
-	@Field()
+	@Field(() => [Group])
 	groups: Group[];
 }

@@ -73,21 +73,8 @@ const redisClient = redis.createClient({
 			}
 		});
 
-		app.get('/', async (req, res) => {
-			try {
-				const result = await axios.get(`https://gamma.chalmers.it/api/users/me`, {
-					headers: {
-						Authorization: `Bearer ${req.session?.gamma?.accessToken}`,
-					},
-				});
-				res.send('logged in');
-			} catch (e) {
-				res.send('not logged in');
-			}
-		});
-
-		// const server = await createApolloServer();
-		// server.applyMiddleware({ app });
+		const server = await createApolloServer();
+		server.applyMiddleware({ app });
 
 		app.listen(3000, () => console.log('Server ready at 3000'));
 	} catch (e) {

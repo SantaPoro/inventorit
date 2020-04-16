@@ -11,12 +11,12 @@ export default class Group {
 	@Field()
 	name: string;
 
-	@Field()
+	@Field(() => [User])
 	users: User[];
 
-	@Field()
+	@Field(() => User)
 	owner: User;
 
-	@Field()
+	@Field(() => [Item])
 	items: Item[];
 }

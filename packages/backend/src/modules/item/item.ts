@@ -10,6 +10,6 @@ export default class Item {
 	@Field()
 	name: string;
 
-	@Field()
+	@Field(() => Group)
 	group: Group;
 }
