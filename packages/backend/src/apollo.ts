@@ -1,11 +1,12 @@
 import { ApolloServer } from 'apollo-server-express';
 import axios from 'axios';
 import { buildSchema } from 'type-graphql';
+import { getRepository } from 'typeorm';
 
 import User from './entities/user';
 
 export interface Context {
-	user: User | null;
+	user?: User;
 }
 
 async function createApolloServer() {
@@ -16,19 +17,14 @@ async function createApolloServer() {
 	return new ApolloServer({
 		schema,
 		context: async (context): Promise<Context> => {
-			let user = null;
+			let user: User | undefined;
 			try {
-				const result = await axios.get(`https://gamma.chalmers.it/api/users/me`, {
-					headers: {
-						Authorization: `Bearer ${context.req.session?.gamma?.accessToken}`,
-					},
-				});
-				console.log(result);
-				user = null;
+				const userRepository = getRepository(User);
+				user = await userRepository.findOne({ where: { id: context.req.session?.auth.userId } });
 			} catch (e) {
-				console.log('not logged in bruh');
-				user = null;
+				// User isn't logged in
 			}
+
 			return {
 				user,
 			};
