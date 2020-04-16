@@ -43,6 +43,15 @@ services:
     volumes:
       - pgadmindata:/usr/lib/pgadmin
 
+  redis:
+    image: redis
+    command:
+      - redis-server
+      - --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redisdata:/var/lib/redis
+
 volumes:
   pgdata:
   pgadmindata:
+  redisdata:
