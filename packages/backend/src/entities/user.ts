@@ -1,18 +1,30 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+	Column,
+	Entity,
+	JoinTable,
+	ManyToMany,
+	PrimaryGeneratedColumn,
+} from 'typeorm';
+
+import Group from './group';
 
 @Entity()
-export class User {
+class User {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Column({
-		length: 40,
-	})
-	name: string;
-
-	@Column('text')
-	team: string;
+	@Column()
+	email: string;
 
 	@Column()
-	borrowable: boolean;
+	password: string;
+
+	@Column()
+	name: string;
+
+	@ManyToMany(() => Group)
+	@JoinTable()
+	groups: User[];
 }
+
+export default User;
