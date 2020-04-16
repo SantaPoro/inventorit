@@ -3,9 +3,9 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import Group from './group';
 
 @Entity()
-class Item {
-	@PrimaryGeneratedColumn()
-	id: number;
+export default class Item {
+	@PrimaryGeneratedColumn('uuid')
+	id: string;
 
 	@Column()
 	name: string;
@@ -13,5 +13,3 @@ class Item {
 	@ManyToOne(() => Group, group => group.items)
 	group: Group;
 }
-
-export default Item;

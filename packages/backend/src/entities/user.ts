@@ -9,9 +9,9 @@ import {
 import Group from './group';
 
 @Entity()
-class User {
-	@PrimaryGeneratedColumn()
-	id: number;
+export default class User {
+	@PrimaryGeneratedColumn('uuid')
+	id: string;
 
 	@Column()
 	email: string;
@@ -24,7 +24,5 @@ class User {
 
 	@ManyToMany(() => Group)
 	@JoinTable()
-	groups: User[];
+	groups: Group[];
 }
-
-export default User;

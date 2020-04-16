@@ -12,9 +12,9 @@ import Item from './item';
 import User from './user';
 
 @Entity()
-class Group {
-	@PrimaryGeneratedColumn()
-	id: number;
+export default class Group {
+	@PrimaryGeneratedColumn('uuid')
+	id: string;
 
 	@Column()
 	name: string;
@@ -29,5 +29,3 @@ class Group {
 	@OneToMany(() => Item, item => item.group)
 	items: Item[];
 }
-
-export default Group;
