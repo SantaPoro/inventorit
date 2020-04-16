@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Test from './testlink';
@@ -20,9 +21,9 @@ const Nav = () => {
 		<Navbar>
 			{' '}
 			INVENTORit
-			<Test>test1</Test>
-			<Test>test2</Test>
-			<Test>test1⅋⅋⅋⅋⅋⅋⅋4</Test>
+			<Test to="/">test1</Test>
+			<Test to="/about">test2</Test>
+			<Test to="/users">test1⅋⅋⅋⅋⅋⅋⅋4</Test>
 		</Navbar>
 	);
 };
