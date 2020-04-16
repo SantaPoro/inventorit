@@ -8,10 +8,10 @@ export default class User {
 	id: string;
 
 	@Field()
-	email: string;
+	firstName: string;
 
 	@Field()
-	name: string;
+	lastName: string;
 
 	@Field(() => [Group])
 	groups: Group[];
