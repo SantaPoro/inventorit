@@ -1,7 +1,7 @@
 {
-	"name": "@trello-burndown/frontend",
+	"name": "@inventorit/frontend",
 	"version": "0.0.0",
-	"repository": "trello-burndown/frontend",
+	"repository": "inventorit/frontend",
 	"main": "lib/index.js",
 	"license": "MIT",
 	"private": true,
