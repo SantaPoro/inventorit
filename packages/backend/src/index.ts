@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 
+import axios from 'axios';
 import RedisSession from 'connect-redis';
 import dotenv from 'dotenv';
 import express from 'express';
@@ -43,8 +44,50 @@ const redisClient = redis.createClient({
 			}),
 		);
 
-		const server = await createApolloServer();
-		server.applyMiddleware({ app });
+		app.get('/auth/callback/gamma', async (req, res) => {
+			try {
+				const clientId = String(process.env.GAMMA_CLIENT_ID);
+				const clientSecret = String(process.env.GAMMA_CLIENT_SECRET);
+				const { code } = req.query;
+				const basicCredentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
+
+				const redirectUri = String(process.env.GAMMA_REDIRECT_URI);
+				const result = await axios.post(
+					`https://gamma.chalmers.it/api/oauth/token?grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}`,
+					null,
+					{
+						headers: {
+							Authorization: `Basic ${basicCredentials}`,
+						},
+					},
+				);
+				if (req.session) {
+					req.session.gamma = {
+						accessToken: result.data['access_token'],
+						scope: result.data['scope'],
+					};
+				}
+				res.redirect('/');
+			} catch (e) {
+				console.log(e);
+			}
+		});
+
+		app.get('/', async (req, res) => {
+			try {
+				const result = await axios.get(`https://gamma.chalmers.it/api/users/me`, {
+					headers: {
+						Authorization: `Bearer ${req.session?.gamma?.accessToken}`,
+					},
+				});
+				res.send('logged in');
+			} catch (e) {
+				res.send('not logged in');
+			}
+		});
+
+		// const server = await createApolloServer();
+		// server.applyMiddleware({ app });
 
 		app.listen(3000, () => console.log('Server ready at 3000'));
 	} catch (e) {
