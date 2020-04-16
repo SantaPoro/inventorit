@@ -19,7 +19,7 @@ const redisClient = redis.createClient({
 });
 const RedisSessionStore = RedisSession(session);
 
-const GAMMA_TOKEN_ENDPOINT = 'https://gamma.chalmers.it/api/oauth/token';
+const GAMMA_API_ENDPOINT = 'https://gamma.chalmers.it/api';
 
 (async function () {
 	try {
@@ -55,7 +55,7 @@ const GAMMA_TOKEN_ENDPOINT = 'https://gamma.chalmers.it/api/oauth/token';
 
 				const redirectUri = String(process.env.GAMMA_REDIRECT_URI);
 				const tokenResult = await axios.post(
-					`${GAMMA_TOKEN_ENDPOINT}?grant_type=authorization_code&code=${authCode}&redirect_uri=${redirectUri}`,
+					`${GAMMA_API_ENDPOINT}/oauth/token?grant_type=authorization_code&code=${authCode}&redirect_uri=${redirectUri}`,
 					null,
 					{
 						headers: {
@@ -63,7 +63,7 @@ const GAMMA_TOKEN_ENDPOINT = 'https://gamma.chalmers.it/api/oauth/token';
 						},
 					},
 				);
-				const userResult = await axios.get(`https://gamma.chalmers.it/api/users/me`, {
+				const userResult = await axios.get(`${GAMMA_API_ENDPOINT}/users/me`, {
 					headers: {
 						Authorization: `Bearer ${tokenResult.data['access_token']}`,
 					},
