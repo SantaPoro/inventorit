@@ -1,5 +1,4 @@
 import { ApolloServer } from 'apollo-server-express';
-import axios from 'axios';
 import { buildSchema } from 'type-graphql';
 import { getRepository } from 'typeorm';
 
