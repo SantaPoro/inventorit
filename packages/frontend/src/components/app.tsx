@@ -1,6 +1,8 @@
 import React from 'react';
-import Nav from './nav';
+
 import { Normalize } from 'styled-normalize';
+
+import Nav from './nav';
 
 interface Props {
 	name: string;

@@ -1,6 +1,8 @@
 import React from 'react';
+
 import styled from 'styled-components';
-import Test from './test';
+
+import Test from './testlink';
 
 const Navbar = styled.nav`
 	widht: 100%;
