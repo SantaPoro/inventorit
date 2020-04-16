@@ -11,7 +11,7 @@ const Navbar = styled.nav`
 	display: flex;
 `;
 
-const ColouredNavbar = styled(Navbar)`
+export const ColouredNavbar = styled(Navbar)`
 	background: red;
 `;
 
