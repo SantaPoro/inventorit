@@ -1,17 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
+import Test from './test';
 
 const Navbar = styled.nav`
 	widht: 100%;
 	height: 100px;
-	background: red;
+	background: cyan;
+	display: flex;
 `;
 
 const ColouredNavbar = styled(Navbar)`
-	background: blue;
+	background: red;
 `;
+
 const Nav = () => {
-	return <Navbar> INVENTORit</Navbar>;
+	return (
+		<Navbar>
+			{' '}
+			INVENTORit
+			<Test>test1</Test>
+			<Test>test2</Test>
+			<Test>test1⅋⅋⅋⅋⅋⅋⅋4</Test>
+		</Navbar>
+	);
 };
 
 export default Nav;
