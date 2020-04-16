@@ -7,14 +7,14 @@ export default class User {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
 
-	@Column()
-	email: string;
+	@Column('uuid')
+	gammaId: string;
 
 	@Column()
-	password: string;
+	firstName: string;
 
 	@Column()
-	name: string;
+	lastName: string;
 
 	@ManyToMany(() => Group)
 	@JoinTable()

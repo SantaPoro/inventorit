@@ -6,18 +6,20 @@ import dotenv from 'dotenv';
 import express from 'express';
 import session from 'express-session';
 import redis from 'redis';
-import { createConnection } from 'typeorm';
+import { createConnection, getRepository } from 'typeorm';
 
 import createApolloServer from './apollo';
+import User from './entities/user';
 
 dotenv.config();
-
-const RedisSessionStore = RedisSession(session);
 
 const redisClient = redis.createClient({
 	host: 'redis',
 	password: String(process.env.REDIS_PASSWORD),
 });
+const RedisSessionStore = RedisSession(session);
+
+const GAMMA_TOKEN_ENDPOINT = 'https://gamma.chalmers.it/api/oauth/token';
 
 (async function () {
 	try {
@@ -48,12 +50,12 @@ const redisClient = redis.createClient({
 			try {
 				const clientId = String(process.env.GAMMA_CLIENT_ID);
 				const clientSecret = String(process.env.GAMMA_CLIENT_SECRET);
-				const { code } = req.query;
+				const authCode = req.query.code;
 				const basicCredentials = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
 
 				const redirectUri = String(process.env.GAMMA_REDIRECT_URI);
-				const result = await axios.post(
-					`https://gamma.chalmers.it/api/oauth/token?grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}`,
+				const tokenResult = await axios.post(
+					`${GAMMA_TOKEN_ENDPOINT}?grant_type=authorization_code&code=${authCode}&redirect_uri=${redirectUri}`,
 					null,
 					{
 						headers: {
@@ -61,16 +63,38 @@ const redisClient = redis.createClient({
 						},
 					},
 				);
+				const userResult = await axios.get(`https://gamma.chalmers.it/api/users/me`, {
+					headers: {
+						Authorization: `Bearer ${tokenResult.data['access_token']}`,
+					},
+				});
+				const userRepository = getRepository(User);
+				let user = await userRepository.findOne({
+					where: {
+						gammaId: userResult.data.id,
+					},
+				});
+				if (!user) {
+					user = await userRepository.save({
+						firstName: userResult.data.firstName,
+						gammaId: userResult.data.id,
+						lastName: userResult.data.lastName,
+					});
+				}
 				if (req.session) {
-					req.session.gamma = {
-						accessToken: result.data['access_token'],
-						scope: result.data['scope'],
+					req.session.auth = {
+						userId: user.id,
+						accessToken: tokenResult.data['access_token'],
 					};
 				}
 				res.redirect('/');
 			} catch (e) {
-				console.log(e);
+				res.redirect('/error');
 			}
+		});
+
+		app.get('/', (req, res) => {
+			res.send(req.session);
 		});
 
 		const server = await createApolloServer();

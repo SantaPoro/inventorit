@@ -1,5 +1,5 @@
 import { ApolloServer } from 'apollo-server-express';
-import Axios from 'axios';
+import axios from 'axios';
 import { buildSchema } from 'type-graphql';
 
 import User from './entities/user';
@@ -18,7 +18,7 @@ async function createApolloServer() {
 		context: async (context): Promise<Context> => {
 			let user = null;
 			try {
-				const result = await Axios.get(`https://gamma.chalmers.it/api/users/me`, {
+				const result = await axios.get(`https://gamma.chalmers.it/api/users/me`, {
 					headers: {
 						Authorization: `Bearer ${context.req.session?.gamma?.accessToken}`,
 					},
