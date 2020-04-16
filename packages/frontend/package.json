@@ -7,7 +7,7 @@
 	"private": true,
 	"scripts": {
 		"build": "parcel build src/index.html",
-		"build:check": "tcs --noEmit",
+		"build:check": "tsc --noEmit",
 		"clean": "rimraf .cache dist",
 		"dev": "parcel -p 3000 --hmr-port 1234 watch src/index.html",
 		"lint": "eslint --ext .ts,.tsx . && yarn prettier:check",
