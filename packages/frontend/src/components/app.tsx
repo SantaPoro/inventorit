@@ -1,5 +1,9 @@
 import React from 'react';
 
+import { Normalize } from 'styled-normalize';
+
+import Nav from './nav';
+
 interface Props {
 	name: string;
 }
@@ -7,7 +11,9 @@ interface Props {
 const Title: React.FC<Props> = ({ name }) => {
 	return (
 		<div>
-			<h1>InventorIT: {name} asdf 123asdasd</h1>
+			<Normalize />
+			<Nav />
+			<h1>InventorIT: {name}IT</h1>
 		</div>
 	);
 };
