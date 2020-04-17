@@ -10,7 +10,7 @@ export interface Context {
 
 async function createApolloServer() {
 	const schema = await buildSchema({
-		resolvers: [__dirname + '/modules/**/*.{query,mutation}.{ts,js}'],
+		resolvers: [__dirname + '/modules/**/*.{query,mutation,fields}.{ts,js}'],
 	});
 
 	return new ApolloServer({

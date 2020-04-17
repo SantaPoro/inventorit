@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import Group from './group';
 
@@ -16,7 +16,6 @@ export default class User {
 	@Column()
 	lastName: string;
 
-	@ManyToMany(() => Group)
-	@JoinTable()
+	@ManyToMany(() => Group, group => group.users)
 	groups: Group[];
 }

@@ -2,9 +2,10 @@ import {
 	Column,
 	Entity,
 	JoinColumn,
+	JoinTable,
 	ManyToMany,
+	ManyToOne,
 	OneToMany,
-	OneToOne,
 	PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -19,10 +20,11 @@ export default class Group {
 	@Column()
 	name: string;
 
-	@ManyToMany(() => User)
+	@ManyToMany(() => User, user => user.groups)
+	@JoinTable()
 	users: User[];
 
-	@OneToOne(() => User)
+	@ManyToOne(() => User)
 	@JoinColumn()
 	owner: User;
 
