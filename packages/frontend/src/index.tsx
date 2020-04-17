@@ -5,6 +5,6 @@ import Title from './components/app';
 
 ReactDOM.render(<Title name="Inventor" />, document.getElementById('root'));
 
-if (module.hot) {
-	module.hot.accept();
+if ((module as any).hot) {
+	(module as any).hot.accept();
 }
