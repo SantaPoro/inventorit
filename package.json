@@ -14,7 +14,7 @@
 	"scripts": {
 		"build": "lerna run build",
 		"build:check": "lerna run build:check",
-		"check-packages": "yarn clean && yarn build:check && yarn build && yarn test && yarn lint",
+		"check-packages": "yarn clean && yarn build && yarn test && yarn lint",
 		"clean": "lerna run clean",
 		"lint": "lerna run lint && yarn prettier:check",
 		"lint:fix": "lerna run lint:fix && yarn prettier:format",
