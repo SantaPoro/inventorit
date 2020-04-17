@@ -1,7 +1,7 @@
 {
-	"name": "@trello-burndown/frontend",
+	"name": "@inventorit/frontend",
 	"version": "0.0.0",
-	"repository": "trello-burndown/frontend",
+	"repository": "inventorit/frontend",
 	"main": "lib/index.js",
 	"license": "MIT",
 	"private": true,
@@ -24,6 +24,7 @@
 		"styled-normalize": "^8.0.7"
 	},
 	"devDependencies": {
+		"@types/node": "^13.11.1",
 		"@types/parcel-env": "^0.0.0",
 		"@types/react": "^16.9.25",
 		"@types/react-dom": "^16.9.5",
