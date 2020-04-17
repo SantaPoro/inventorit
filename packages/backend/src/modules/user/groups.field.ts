@@ -7,7 +7,7 @@ import GQLGroup from '../group/group';
 import GQLUser from './user';
 
 @Resolver(() => GQLUser)
-export default class UserFieldsResolver {
+export default class GroupsFieldResolver {
 	@FieldResolver()
 	async groups(@Root() user: GQLUser): Promise<GQLGroup[]> {
 		const userRepository = getRepository(DBUser);

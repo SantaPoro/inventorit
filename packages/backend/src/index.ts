@@ -9,6 +9,8 @@ import redis from 'redis';
 import { createConnection, getRepository } from 'typeorm';
 
 import createApolloServer from './apollo';
+import Group from './entities/group';
+import Item from './entities/item';
 import User from './entities/user';
 
 dotenv.config();
@@ -93,8 +95,22 @@ const GAMMA_API_ENDPOINT = 'https://gamma.chalmers.it/api';
 			}
 		});
 
-		app.get('/', (req, res) => {
-			res.send(req.session);
+		app.get('/', async (_req, res) => {
+			const itemRepository = getRepository(Item);
+
+			const groupRepository = getRepository(Group);
+			const groups = await groupRepository.find();
+
+			const promises = groups.map(group => {
+				return itemRepository.save({
+					group,
+					name: 'Item 123',
+				});
+			});
+
+			const items = await Promise.all(promises);
+
+			res.send(items);
 		});
 
 		const server = await createApolloServer();
