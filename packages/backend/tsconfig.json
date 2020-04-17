@@ -6,7 +6,8 @@
 		"module": "commonjs",
 		"outDir": "dist",
 		"strictPropertyInitialization": false,
-		"target": "es2016"
+		"target": "es2016",
+		"types": ["node"]
 	},
 	"extends": "../../tsconfig.base.json",
 	"include": ["src"]
