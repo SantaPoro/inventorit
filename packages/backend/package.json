@@ -14,7 +14,7 @@
 		"prettier:format": "prettier --write --ignore-path ../../.gitignore --loglevel error \"**/*.{js,jsx,json,yml,yaml}\"",
 		"prettier:check": "prettier --list-different --ignore-path ../../.gitignore \"**/*.{js,jsx,json,yml,yaml}\"",
 		"start": "node dist/index.js",
-		"test": "jest"
+		"test": "jest --passWithNoTests"
 	},
 	"dependencies": {
 		"apollo-server-express": "^2.12.0",
