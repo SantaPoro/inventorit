@@ -3,11 +3,14 @@ import React from 'react';
 import { Layout, Menu, PageHeader } from 'antd';
 import { Link, Route, Switch } from 'react-router-dom';
 
+import { useAuth } from './contexts/auth-context';
 import GroupsScreen from './screens/groups';
 import HomeScreen from './screens/home';
 import ItemsScreen from './screens/items';
 
 const AppView = () => {
+	const { isAuthenticated } = useAuth();
+
 	return (
 		<Layout>
 			<Layout.Header>
@@ -27,7 +30,12 @@ const AppView = () => {
 				</Menu>
 			</Layout.Header>
 			<Layout.Content>
-				<PageHeader onBack={() => null} title="Content" subTitle="" />,
+				<PageHeader
+					onBack={() => null}
+					title="Content"
+					subTitle={isAuthenticated ? 'Logged in' : 'Not logged in'}
+				/>
+				,
 				<Switch>
 					<Route exact path="/" component={HomeScreen} />
 					<Route exact path="/groups" component={GroupsScreen} />

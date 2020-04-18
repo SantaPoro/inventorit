@@ -7,6 +7,7 @@ import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/c
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import AppScreen from './screens/app';
+import { AuthProvider } from './screens/app/contexts/auth-context';
 
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
@@ -18,7 +19,9 @@ const client = new ApolloClient({
 ReactDOM.render(
 	<Router>
 		<ApolloProvider client={client}>
-			<AppScreen />
+			<AuthProvider>
+				<AppScreen />
+			</AuthProvider>
 		</ApolloProvider>
 	</Router>,
 	document.getElementById('root'),
