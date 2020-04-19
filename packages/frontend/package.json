@@ -19,9 +19,11 @@
 	"dependencies": {
 		"@apollo/client": "^3.0.0-beta.43",
 		"antd": "^4.1.4",
+		"dayjs": "^1.8.18",
 		"graphql": "^14.5.4",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
+		"react-is": "^16.13.1",
 		"react-router-dom": "^5.1.2",
 		"styled-components": "^5.1.0",
 		"styled-normalize": "^8.0.7"
