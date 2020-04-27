@@ -13,6 +13,7 @@ const client = new ApolloClient({
 	cache: new InMemoryCache(),
 	link: new HttpLink({
 		uri: String(process.env.GRAPHQL_API_ENDPOINT),
+		credentials: 'include',
 	}),
 });
 
