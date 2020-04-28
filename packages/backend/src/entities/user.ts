@@ -7,14 +7,17 @@ export default class User {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
 
-	@Column('uuid')
-	gammaId: string;
+	@Column('uuid', { nullable: true })
+	gammaId?: string;
+
+	@Column({ nullable: true })
+	githubId?: string;
+
+	@Column({ nullable: true })
+	googleId?: string;
 
 	@Column()
-	firstName: string;
-
-	@Column()
-	lastName: string;
+	name: string;
 
 	@ManyToMany(() => Group, group => group.users)
 	groups: Group[];
