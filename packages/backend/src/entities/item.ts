@@ -1,12 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 
+import BaseEntity from './base-entity';
 import Group from './group';
 
 @Entity()
-export default class Item {
-	@PrimaryGeneratedColumn('uuid')
-	id: string;
-
+export default class Item extends BaseEntity {
 	@Column()
 	name: string;
 
