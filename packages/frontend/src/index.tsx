@@ -1,8 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-ReactDOM.render(<div>Hello React</div>, document.getElementById('root'));
+import { BrowserProtocol, queryMiddleware } from 'farce';
+import { createFarceRouter, createRender } from 'found';
+import { Resolver } from 'found-relay';
 
-if (module.hot) {
-	module.hot.accept();
+import environment from './relay-environment';
+import { routeConfig } from './routes';
+
+const Router = createFarceRouter({
+	historyProtocol: new BrowserProtocol(),
+	historyMiddlewares: [queryMiddleware],
+	routeConfig,
+	render: createRender({}),
+});
+
+ReactDOM.render(<Router resolver={new Resolver(environment)} />, document.getElementById('root'));
+
+if ((module as any).hot) {
+	(module as any).hot.accept();
 }
