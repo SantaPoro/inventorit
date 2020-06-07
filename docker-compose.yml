@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 services:
   frontend:
     build:
@@ -42,6 +42,9 @@ services:
       SCRIPT_NAME: /pgadmin
     volumes:
       - pgadmindata:/usr/lib/pgadmin
+
+  redis:
+    image: redis:6.0
 
 volumes:
   pgdata:

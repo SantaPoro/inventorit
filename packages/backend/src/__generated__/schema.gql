@@ -1,0 +1,39 @@
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  startCursor: String!
+  endCursor: String!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+type Query {
+  node(id: ID!): Node!
+  viewer: Viewer!
+}
+
+type User implements Node {
+  id: ID!
+  name: String!
+  email: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type LoginPayload {
+  user: User!
+}
+
+type Mutation {
+  login(input: LoginInput!): LoginPayload
+}
+
+type Viewer {
+  isLoggedIn: Boolean!
+  user: User
+}

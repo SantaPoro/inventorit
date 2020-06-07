@@ -1,9 +1,11 @@
 {
-  "compilerOptions": {
-    "jsx": "react"
-  },
-  "extends": "../../tsconfig.base.json",
-  "include": [
-    "src"
-  ]
+	"compilerOptions": {
+		"jsx": "react",
+		"module": "commonjs",
+		"sourceMap": true,
+		"target": "es6",
+		"types": ["jest", "node", "webpack", "webpack-dev-server"]
+	},
+	"extends": "../../tsconfig.base.json",
+	"include": ["src"]
 }
