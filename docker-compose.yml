@@ -11,6 +11,8 @@ services:
     volumes:
       - /usr/src/app/packages/frontend/node_modules
       - ./packages/frontend:/usr/src/app/packages/frontend
+      - /usr/src/app/packages/backend/node_modules
+      - ./packages/backend:/usr/src/app/packages/backend
 
   backend:
     build:
@@ -39,7 +41,6 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
-      SCRIPT_NAME: /pgadmin
     volumes:
       - pgadmindata:/usr/lib/pgadmin
 
@@ -49,3 +50,4 @@ services:
 volumes:
   pgdata:
   pgadmindata:
+  redisdata:
