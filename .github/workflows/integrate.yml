@@ -13,16 +13,20 @@ jobs:
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: Cache node modules
+      - name: Cache yarn
         uses: actions/cache@v2
-        id: yarn-cache
-        env:
-          cache-name: cache-node-modules
+        id: cache-yarn
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+      - name: Cache node modules
+        uses: actions/cache@v2
+        id: cache-node-modules
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
       - name: Install dependencies
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        if: steps.cache-yarn.outputs.cache-hit != 'true' || steps.cache-node-modules.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile
       - name: Build
         run: yarn build
