@@ -16,12 +16,13 @@ module.exports = {
 		'react/prop-types': 'off',
 		'react-hooks/rules-of-hooks': 'error',
 		'react-hooks/exhaustive-deps': 'warn',
+		'@typescript-eslint/camelcase': 'off',
 	},
 	settings: {
 		...baseConfig.settings,
 		react: {
 			...(baseConfig.react || {}),
-			version: '16.12',
+			version: '16.13',
 		},
 	},
 };

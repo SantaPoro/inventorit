@@ -1,9 +1,3 @@
-module.exports = {
-	client: {
-		service: {
-			name: 'template-project',
-			localSchemaFile: './packages/backend/src/__generated__/schema.gql',
-			excludes: ['**/__tests__/**/*'],
-		},
-	},
-};
+const { config } = require('vscode-apollo-relay').generateConfig();
+
+module.exports = config;

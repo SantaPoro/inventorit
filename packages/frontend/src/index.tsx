@@ -1,32 +1,21 @@
-import 'antd/dist/antd.min.css';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserProtocol, queryMiddleware } from 'farce';
+import { createFarceRouter, createRender } from 'found';
+import { Resolver } from 'found-relay';
 
-import AppScreen from './screens/app';
-import { AuthProvider } from './screens/app/contexts/auth-context';
+import environment from './relay-environment';
+import { routeConfig } from './routes';
 
-const client = new ApolloClient({
-	cache: new InMemoryCache(),
-	link: new HttpLink({
-		uri: String(process.env.GRAPHQL_API_ENDPOINT),
-		credentials: 'include',
-	}),
+const Router = createFarceRouter({
+	historyProtocol: new BrowserProtocol(),
+	historyMiddlewares: [queryMiddleware],
+	routeConfig,
+	render: createRender({}),
 });
 
-ReactDOM.render(
-	<Router>
-		<ApolloProvider client={client}>
-			<AuthProvider>
-				<AppScreen />
-			</AuthProvider>
-		</ApolloProvider>
-	</Router>,
-	document.getElementById('root'),
-);
+ReactDOM.render(<Router resolver={new Resolver(environment)} />, document.getElementById('root'));
 
 if ((module as any).hot) {
 	(module as any).hot.accept();

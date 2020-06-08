@@ -1,22 +1,11 @@
-import {
-	Column,
-	Entity,
-	JoinColumn,
-	JoinTable,
-	ManyToMany,
-	ManyToOne,
-	OneToMany,
-	PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
 
+import BaseEntity from './base-entity';
 import Item from './item';
 import User from './user';
 
 @Entity()
-export default class Group {
-	@PrimaryGeneratedColumn('uuid')
-	id: string;
-
+export default class Group extends BaseEntity {
 	@Column()
 	name: string;
 

@@ -133,5 +133,5 @@ sketch
 
 # End of https://www.gitignore.io/api/node,react,visualstudiocode
 
-# Apollo generated graphql types
+# Generated files
 __generated__
