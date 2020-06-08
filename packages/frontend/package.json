@@ -6,7 +6,7 @@
 	"license": "MIT",
 	"private": true,
 	"scripts": {
-		"build": "webpack --config webpack.prod.ts",
+		"build": "yarn build:check && webpack --config webpack.prod.ts",
 		"build:check": "yarn --cwd ../backend generate-graphql-schema && yarn relay && tsc --noEmit",
 		"clean": "rimraf dist **/__generated__",
 		"dev": "concurrently \"yarn relay:watch\" \"yarn webpack:watch\"",
