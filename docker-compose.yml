@@ -53,8 +53,6 @@ services:
       HTTP_PROXY: http://gamma-backend:8081
     depends_on:
       - gamma-backend
-    networks:
-      - gamma
     ports:
       - ${GAMMA_FRONTEND_PORT}:3000
 
@@ -80,7 +78,7 @@ services:
       DEFAULT_CLIENT_NAME: inventorit
       DEFAULT_CLIENT_ID: inventorit
       DEFAULT_CLIENT_SECRET: inventorit
-      DEFAULT_REDIRECT_URI: http://localhost:${FRONTEND_PORT}/oauth2/gamma/callback
+      DEFAULT_REDIRECT_URI: http://localhost:${FRONTEND_PORT}/api/auth/gamma/callback
 
       SERVER_PORT: 8081
       SUCCESSFUL_LOGIN: http://localhost:${GAMMA_FRONTEND_PORT}
@@ -92,15 +90,11 @@ services:
     depends_on:
       - gamma-redis
       - gamma-db
-    networks:
-      - gamma
     ports:
       - ${GAMMA_BACKEND_PORT}:8081
 
   gamma-redis:
     image: redis:5.0
-    networks:
-      - gamma
 
   gamma-db:
     image: postgres:10
@@ -108,11 +102,6 @@ services:
       POSTGRES_USER: user
       POSTGRES_DB: postgres
       POSTGRES_PASSWORD: password
-    networks:
-      - gamma
-
-networks:
-  gamma:
 
 volumes:
   pgdata:
