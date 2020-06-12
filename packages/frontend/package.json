@@ -27,6 +27,7 @@
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
 		"react-relay": "^9.1.0",
+		"react-relay-network-modern": "^4.7.2",
 		"relay-runtime": "^9.1.0"
 	},
 	"devDependencies": {
