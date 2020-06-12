@@ -24,6 +24,7 @@
 		"@graphql-modules/di": "^0.7.17",
 		"@graphql-toolkit/file-loading": "^0.10.7",
 		"apollo-server-express": "^2.14.2",
+		"axios": "^0.19.2",
 		"connect-redis": "^4.0.4",
 		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
@@ -31,6 +32,7 @@
 		"graphql": "^15.0.0",
 		"graphql-tag": "^2.10.3",
 		"pg": "^8.2.1",
+		"query-string": "^6.13.1",
 		"redis": "^3.0.2",
 		"reflect-metadata": "^0.1.13",
 		"typeorm": "^0.2.25"

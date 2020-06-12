@@ -1,0 +1,7 @@
+type LogoutPayload {
+	success: Boolean!
+}
+
+type Mutation {
+	logout: LogoutPayload!
+}
