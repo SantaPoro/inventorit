@@ -12,7 +12,7 @@ const config = merge(common, {
 		host: '0.0.0.0',
 		port: 3000,
 		proxy: {
-			'/graphql': 'http://backend:3000',
+			'/api': 'http://backend:3000',
 		},
 	},
 	plugins: [
