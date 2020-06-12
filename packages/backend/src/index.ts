@@ -98,9 +98,6 @@ const RedisSessionStore = RedisSession(session);
 			} catch (error) {
 				console.error(error.message);
 			}
-			//
-			// Login and stuffs
-			return res.send('good shit');
 		});
 
 		const server = await createApolloServer();
