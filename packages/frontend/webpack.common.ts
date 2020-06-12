@@ -14,10 +14,8 @@ const config: Configuration = {
 		rules: [
 			{
 				test: /\.tsx?$/,
-				use: {
-					loader: 'babel-loader',
-				},
-				exclude: /(node_modules)/,
+				use: 'babel-loader',
+				include: path.resolve(__dirname, 'src'),
 			},
 		],
 	},
