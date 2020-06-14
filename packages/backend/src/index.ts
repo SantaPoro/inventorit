@@ -78,6 +78,8 @@ const RedisSessionStore = RedisSession(session);
 				const firstName = profileResult.data['firstName'];
 				const lastName = profileResult.data['lastName'];
 
+				console.log(profileResult.data['groups']);
+
 				const userRepository = getRepository(User);
 				let user = await userRepository.findOne({ gammaId: id });
 				if (!user) {
@@ -93,6 +95,10 @@ const RedisSessionStore = RedisSession(session);
 					// This is untyped, should probably add some checks
 					const groups = profileResult.data['groups'];
 					for (const group of groups) {
+						if (group.superGroup.type !== 'COMMITTEE') {
+							continue;
+						}
+
 						const gammaId = group.superGroup.id;
 						let g = await groupRepository.findOne({
 							where: { gammaId },
