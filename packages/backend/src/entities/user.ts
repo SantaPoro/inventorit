@@ -4,15 +4,15 @@ import BaseEntity from './base-entity';
 import Group from './group';
 
 @Entity()
-export default class Player extends BaseEntity {
+export default class User extends BaseEntity {
 	@Column()
-	name: string;
+	firstName: string;
+
+	@Column()
+	lastName: string;
 
 	@Column({ unique: true })
-	email: string;
-
-	@Column()
-	password: string;
+	gammaId: string;
 
 	@ManyToMany(() => Group, group => group.users)
 	groups: Group[];

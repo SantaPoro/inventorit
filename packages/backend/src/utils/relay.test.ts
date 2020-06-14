@@ -1,6 +1,6 @@
 import { connectionFromArray, cursorToOffset, offsetToCursor } from './relay';
 
-const nodes = [0, 1, 2, 3];
+const nodes = [{ id: '0' }, { id: '1' }, { id: '2' }, { id: '3' }];
 
 test('offset cursor retains value throughout encode / decode', () => {
 	const offsets = [-17, -1, 0, 3, 31];
@@ -62,7 +62,6 @@ test('on array length of 4, last 2', () => {
 });
 
 test('on array length of 4, first 2, after 3rd', () => {
-	const nodes = [0, 1, 2, 3];
 	const connection = connectionFromArray(nodes, {
 		first: 2,
 		after: offsetToCursor(2),
@@ -75,7 +74,6 @@ test('on array length of 4, first 2, after 3rd', () => {
 });
 
 test('on array length of 4, last 2, before 4th', () => {
-	const nodes = [0, 1, 2, 3];
 	const connection = connectionFromArray(nodes, {
 		last: 2,
 		before: offsetToCursor(3),

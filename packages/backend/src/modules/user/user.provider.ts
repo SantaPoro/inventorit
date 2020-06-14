@@ -1,31 +1,22 @@
 import { Injectable } from '@graphql-modules/di';
+import { getRepository, Repository } from 'typeorm';
 
-const users = [
-	{
-		id: '0',
-		name: 'Rosen',
-		email: 'rasmus.rosengren@pm.me',
-		password: 'password',
-	},
-];
+import User from '../../entities/user';
 
 @Injectable()
 export class UserProvider {
+	private userRepository: Repository<User>;
+
+	constructor() {
+		this.userRepository = getRepository(User);
+	}
+
 	getUsers() {
-		return users;
+		return this.userRepository.find();
 	}
 
-	getUser(id: string) {
-		const user = users.find(servers => servers.id === id);
-		if (!user) {
-			throw new Error('User not found');
-		}
-
-		return user;
-	}
-
-	getUserByEmail(email: string) {
-		const user = users.find(servers => servers.email === email);
+	async getUser(id: string) {
+		const user = await this.userRepository.findOne(id);
 		if (!user) {
 			throw new Error('User not found');
 		}

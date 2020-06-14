@@ -22,14 +22,14 @@ const network = new RelayNetworkLayer([
 		ttl: 15 * 60 * 1000, // 15 minutes
 	}),
 	urlMiddleware({
-		url: () => Promise.resolve('/graphql'),
+		url: () => Promise.resolve(String(process.env.GRAPHQL_API_ENDPOINT)),
 	}),
 	__DEV__ ? loggerMiddleware() : null,
 	__DEV__ ? errorMiddleware() : null,
 	__DEV__ ? perfMiddleware() : null,
 	retryMiddleware({
 		fetchTimeout: 15 * 1000,
-		retryDelays: attempt => Math.pow(2, attempt + 4) * 100, // or simple array [3200, 6400, 12800, 25600, 51200, 102400, 204800, 409600],
+		retryDelays: attempt => Math.pow(2, attempt + 4) * 100,
 		beforeRetry: ({ abort, attempt }) => {
 			if (attempt > 10) {
 				abort();
@@ -44,7 +44,7 @@ const network = new RelayNetworkLayer([
 	}),
 	uploadMiddleware(),
 	next => async req => {
-		req.fetchOpts.credentials = 'same-origin'; // allow to send cookies (sending credentials to same domains)
+		req.fetchOpts.credentials = 'same-origin';
 
 		console.log('RelayRequest', req);
 		const res = await next(req);

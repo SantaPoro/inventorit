@@ -7,15 +7,15 @@ const resolvers: UserModuleResolversType = {
 		id: ({ id }) => {
 			return toGlobalId('User', id);
 		},
-		name: ({ id }, _input, { injector }) => {
-			const user = injector.get(UserProvider).getUser(id);
+		firstName: async ({ id }, _input, { injector }) => {
+			const user = await injector.get(UserProvider).getUser(id);
 
-			return user.name;
+			return user.firstName;
 		},
-		email: ({ id }, _input, { injector }) => {
-			const user = injector.get(UserProvider).getUser(id);
+		lastName: async ({ id }, _input, { injector }) => {
+			const user = await injector.get(UserProvider).getUser(id);
 
-			return user.email;
+			return user.lastName;
 		},
 	},
 };

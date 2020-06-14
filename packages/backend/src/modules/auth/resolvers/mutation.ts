@@ -1,13 +1,24 @@
 import { AuthModuleResolversType } from '..';
-import { AuthProvider } from '../auth.provider';
 
 const resolvers: AuthModuleResolversType = {
 	Mutation: {
-		login: (_root, { input }, { injector, req }) => {
-			const { email, password } = input;
-			const user = injector.get(AuthProvider).login({ email, password, req });
+		logout: async (_root, _input, { req }) => {
+			await new Promise((resolve, reject) => {
+				if (req.session) {
+					req.session.destroy(error => {
+						if (error) {
+							reject(error);
+						}
+
+						resolve();
+					});
+				} else {
+					reject(new Error('No session was found'));
+				}
+			});
+
 			return {
-				user,
+				success: true,
 			};
 		},
 	},
