@@ -4,6 +4,10 @@ input CreateItemInput {
 	group: ID!
 }
 
+type CreateItemPayload {
+	itemEdge: ItemEdge!
+}
+
 type Mutation {
-	createItem(input: CreateItemInput!): ItemEdge!
+	createItem(input: CreateItemInput!): CreateItemPayload!
 }

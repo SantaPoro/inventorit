@@ -11,8 +11,10 @@ const resolvers: ItemModuleResolversType = {
 			});
 
 			return {
-				node: item,
-				cursor: '',
+				itemEdge: {
+					node: item,
+					cursor: '',
+				},
 			};
 		},
 	},
