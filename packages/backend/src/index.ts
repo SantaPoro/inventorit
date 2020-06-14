@@ -23,6 +23,23 @@ const redisClient = redis.createClient({
 });
 const RedisSessionStore = RedisSession(session);
 
+interface GammaUser {
+	id: string;
+	firstName: string;
+	lastName: string;
+	groups: GammaGroup[];
+}
+
+interface GammaGroup {
+	superGroup: GammaSuperGroup;
+}
+
+interface GammaSuperGroup {
+	id: string;
+	name: string;
+	type: string;
+}
+
 (async function () {
 	try {
 		await createConnection(typeormConfig);
@@ -74,11 +91,9 @@ const RedisSessionStore = RedisSession(session);
 						Authorization: 'Bearer ' + accessToken,
 					},
 				});
-				const id = profileResult.data['id'];
-				const firstName = profileResult.data['firstName'];
-				const lastName = profileResult.data['lastName'];
 
-				console.log(profileResult.data['groups']);
+				const profile = profileResult.data as GammaUser;
+				const { id, firstName, lastName } = profile;
 
 				const userRepository = getRepository(User);
 				let user = await userRepository.findOne({ gammaId: id });
@@ -89,44 +104,48 @@ const RedisSessionStore = RedisSession(session);
 						lastName,
 					});
 					user = await userRepository.save(user);
-
-					const groupRepository = getRepository(Group);
-
-					// This is untyped, should probably add some checks
-					const groups = profileResult.data['groups'];
-					for (const group of groups) {
-						if (group.superGroup.type !== 'COMMITTEE') {
-							continue;
-						}
-
-						const gammaId = group.superGroup.id;
-						let g = await groupRepository.findOne({
-							where: { gammaId },
-							relations: ['users'],
-						});
-						if (g) {
-							// Group exists, check if user is in that group
-							if (!g.users.find(u => u.id === user.id)) {
-								// User is not in group, add to group
-								g.users.push(user);
-								await groupRepository.save(g);
-							}
-						} else {
-							g = groupRepository.create({
-								gammaId,
-								name: group.superGroup.name,
-								users: [user],
-							});
-							g = await groupRepository.save(g);
-						}
+					if (!user) {
+						throw new Error('Could not create user');
 					}
-				}
 
-				if (req.session) {
-					req.session.auth = {
-						userId: user.id,
-						accessToken,
-					};
+					// TypeScript isn't able to infer that user is not undefined for some reason,
+					// assigned to a new variable seems to help
+					const newUser = user;
+					const groupRepository = getRepository(Group);
+					await Promise.all(
+						profile.groups.map(async gammaGroup => {
+							if (gammaGroup.superGroup.type !== 'COMMITTEE' || !user) {
+								return;
+							}
+
+							const gammaGroupId = gammaGroup.superGroup.id;
+							let group = await groupRepository.findOne({
+								where: { gammaId: gammaGroupId },
+								relations: ['users'],
+							});
+							if (group) {
+								if (!group.users.find(({ id }) => id === newUser.id)) {
+									// User is not in group, add to group
+									group.users.push(newUser);
+									await groupRepository.save(group);
+								}
+							} else {
+								group = groupRepository.create({
+									gammaId: gammaGroupId,
+									name: gammaGroup.superGroup.name,
+									users: [newUser],
+								});
+								group = await groupRepository.save(group);
+							}
+						}),
+					);
+
+					if (req.session) {
+						req.session.auth = {
+							userId: user.id,
+							accessToken,
+						};
+					}
 				}
 
 				return res.redirect('/');
