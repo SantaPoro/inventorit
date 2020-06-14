@@ -11,6 +11,7 @@ import redis from 'redis';
 import { createConnection, getRepository } from 'typeorm';
 
 import createApolloServer from './create-apollo-server';
+import Group from './entities/group';
 import User from './entities/user';
 import typeormConfig from './typeorm-config';
 import { base64 } from './utils/base64';
@@ -86,11 +87,39 @@ const RedisSessionStore = RedisSession(session);
 						lastName,
 					});
 					user = await userRepository.save(user);
+
+					const groupRepository = getRepository(Group);
+
+					// This is untyped, should probably add some checks
+					const groups = profileResult.data['groups'];
+					for (const group of groups) {
+						const gammaId = group.superGroup.id;
+						let g = await groupRepository.findOne({
+							where: { gammaId },
+							relations: ['users'],
+						});
+						if (g) {
+							// Group exists, check if user is in that group
+							if (!g.users.find(u => u.id === user.id)) {
+								// User is not in group, add to group
+								g.users.push(user);
+								await groupRepository.save(g);
+							}
+						} else {
+							g = groupRepository.create({
+								gammaId,
+								name: group.superGroup.name,
+								users: [user],
+							});
+							g = await groupRepository.save(g);
+						}
+					}
 				}
 
 				if (req.session) {
 					req.session.auth = {
 						userId: user.id,
+						accessToken,
 					};
 				}
 

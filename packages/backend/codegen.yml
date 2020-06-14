@@ -7,5 +7,6 @@ generates:
     config:
       typesPrefix: GQL
       mappers:
+        Group: ./../utils/relay#Node
         User: ./../utils/relay#Node
         Viewer: ./../types#Empty

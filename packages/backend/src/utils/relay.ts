@@ -5,15 +5,15 @@ export interface Node {
 }
 
 interface ConnectionArguments {
-	first?: number;
-	after?: string;
-	last?: number;
-	before?: string;
+	first?: number | null;
+	after?: string | null;
+	last?: number | null;
+	before?: string | null;
 }
 
-interface Connection<T> {
+interface Connection {
 	totalCount: number;
-	edges: Edge<T>[];
+	edges: Edge<Node>[];
 	pageInfo: PageInfo;
 }
 
@@ -50,16 +50,13 @@ export function cursorToOffset(cursor: string): number {
 	return offset;
 }
 
-export function connectionFromArray<T>(
-	allNodes: T[],
-	{ first, after, last, before }: ConnectionArguments,
-): Connection<T> {
+export function connectionFromArray(allNodes: Node[], { first, after, last, before }: ConnectionArguments): Connection {
 	// const edges = edgesToReturn(arraySlice, args);
 	let hasNextPage = false;
 	let hasPreviousPage = false;
 	let start = 0;
 	let end = allNodes.length;
-	if (first !== undefined) {
+	if (first !== undefined && first !== null) {
 		if (first < 0) {
 			throw new Error('Argument "first" must be a non-negative integer');
 		}
@@ -74,7 +71,7 @@ export function connectionFromArray<T>(
 
 		end = start + first;
 		hasNextPage = start + first < allNodes.length;
-	} else if (last !== undefined) {
+	} else if (last !== undefined && last !== null) {
 		if (last < 0) {
 			throw new Error('Argument "last" must be a non-negative integer');
 		}
@@ -98,7 +95,7 @@ export function connectionFromArray<T>(
 		throw new Error('No edges');
 	}
 
-	const edges = nodes.map<Edge<T>>((node, index) => ({
+	const edges = nodes.map<Edge<Node>>((node, index) => ({
 		cursor: offsetToCursor(start + index),
 		node,
 	}));
