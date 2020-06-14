@@ -19,6 +19,9 @@ const Navbar: React.FC<Props> = ({ viewer }) => {
 				<li>
 					<Link to="/">Home</Link>
 				</li>
+				<li>
+					<Link to="/groups">Groups</Link>
+				</li>
 			</ul>
 			<ul>
 				{!viewer.isLoggedIn && (
