@@ -1,0 +1,9 @@
+input CreateItemInput {
+	name: String!
+	amount: Int!
+	group: ID!
+}
+
+type Mutation {
+	createItem(input: CreateItemInput!): ItemEdge!
+}

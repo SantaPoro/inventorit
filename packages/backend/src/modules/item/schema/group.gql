@@ -1,0 +1,3 @@
+extend type Group {
+	items(first: Int, after: String, last: Int, before: String): ItemConnection!
+}
