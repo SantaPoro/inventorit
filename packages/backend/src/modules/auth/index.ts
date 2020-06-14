@@ -9,8 +9,6 @@ import User from '../../entities/user';
 import { UserModule } from '../user';
 import { UserProvider } from '../user/user.provider';
 
-import { AuthProvider } from './auth.provider';
-
 export interface AuthModuleContext {
 	req: Request;
 	user: User | null;
@@ -20,7 +18,6 @@ export type AuthModuleResolversType = GQLResolvers<ModuleContext<AuthModuleConte
 
 export const AuthModule = new GraphQLModule<{}, ApolloContext, AuthModuleContext>({
 	imports: [UserModule],
-	providers: [AuthProvider],
 	typeDefs: loadFiles(path.join(__dirname, 'schema', '*.{gql,ts}')),
 	resolvers: loadFiles<AuthModuleResolversType>(path.join(__dirname, 'resolvers', '**/*.ts')),
 	context: async ({ req }, _previousContext, { injector }) => {
