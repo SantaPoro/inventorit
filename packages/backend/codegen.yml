@@ -8,5 +8,6 @@ generates:
       typesPrefix: GQL
       mappers:
         Group: ./../utils/relay#Node
+        Item: ./../utils/relay#Node
         User: ./../utils/relay#Node
         Viewer: ./../types#Empty

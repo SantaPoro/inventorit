@@ -1,0 +1,13 @@
+input CreateItemInput {
+	name: String!
+	amount: Int!
+	group: ID!
+}
+
+type CreateItemPayload {
+	itemEdge: ItemEdge!
+}
+
+type Mutation {
+	createItem(input: CreateItemInput!): CreateItemPayload!
+}
