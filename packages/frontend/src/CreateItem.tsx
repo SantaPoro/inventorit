@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
-import { commitMutation, createFragmentContainer, Environment, graphql } from 'react-relay';
+import { useRouter } from 'found';
+import { commitMutation, createFragmentContainer, graphql } from 'react-relay';
 
 import { CreateItem_group } from './__generated__/CreateItem_group.graphql';
-import { CreateItemMutation, CreateItemMutationVariables } from './__generated__/CreateItemMutation.graphql';
+import { CreateItemMutation } from './__generated__/CreateItemMutation.graphql';
 import relayEnvironment from './relay-environment';
 
 const mutation = graphql`
@@ -19,13 +20,6 @@ const mutation = graphql`
 	}
 `;
 
-function commit(environment: Environment, variables: CreateItemMutationVariables) {
-	commitMutation<CreateItemMutation>(environment, {
-		mutation,
-		variables,
-	});
-}
-
 interface Props {
 	group: CreateItem_group;
 }
@@ -33,16 +27,23 @@ interface Props {
 const CreateItem: React.FC<Props> = ({ group }) => {
 	const [name, setName] = useState('');
 	const [amount, setAmount] = useState(0);
+	const { router } = useRouter();
 
 	return (
 		<form
 			onSubmit={e => {
 				e.preventDefault();
-				commit(relayEnvironment, {
-					input: {
-						name,
-						amount,
-						group: group.id,
+				return commitMutation<CreateItemMutation>(relayEnvironment, {
+					mutation,
+					variables: {
+						input: {
+							name,
+							amount,
+							group: group.id,
+						},
+					},
+					onCompleted: () => {
+						router.replace(`/groups/${group.id}`);
 					},
 				});
 			}}

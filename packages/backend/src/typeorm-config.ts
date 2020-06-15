@@ -13,6 +13,7 @@ const config: ConnectionOptions = {
 	entities: [__dirname + '/entities/*.{js,ts}'],
 	synchronize: process.env.NODE_ENV === 'development',
 	logging: process.env.NODE_ENV === 'development' && ['error', 'warn'],
+	cache: true,
 };
 
 export default config;

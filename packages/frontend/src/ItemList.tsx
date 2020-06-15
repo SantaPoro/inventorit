@@ -12,7 +12,9 @@ const GroupList: React.FC<Props> = ({ items }) => {
 	return (
 		<ul>
 			{items.edges.map(edge => (
-				<li key={edge.node.id}>{edge.node.name}</li>
+				<li key={edge.node.id}>
+					{edge.node.name}: {edge.node.amount}
+				</li>
 			))}
 		</ul>
 	);
@@ -25,6 +27,7 @@ export default createFragmentContainer(GroupList, {
 				node {
 					id
 					name
+					amount
 				}
 			}
 		}
