@@ -1,10 +1,44 @@
 import React from 'react';
 
 import { createFragmentContainer, graphql } from 'react-relay';
+import styled, { createGlobalStyle } from 'styled-components';
 
 import { App_viewer } from './__generated__/App_viewer.graphql';
 import { Footer } from './Footer';
 import Navbar from './Navbar';
+
+const GlobalStyles = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  #root {
+    height: 100%;
+  }
+`;
+
+const Layout = styled.div`
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+`;
+
+const Content = styled.main`
+	flex-grow: 1;
+`;
+
+const Wrapper = styled.div`
+	max-width: 500px;
+	margin: 0 auto;
+`;
 
 interface Props {
 	viewer: App_viewer;
@@ -12,11 +46,14 @@ interface Props {
 
 const App: React.FC<Props> = ({ children, viewer }) => {
 	return (
-		<React.Fragment>
+		<Layout>
+			<GlobalStyles />
 			<Navbar viewer={viewer} />
-			{children}
+			<Content>
+				<Wrapper>{children}</Wrapper>
+			</Content>
 			<Footer />
-		</React.Fragment>
+		</Layout>
 	);
 };
 
