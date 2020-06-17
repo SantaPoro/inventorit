@@ -28,7 +28,8 @@
 		"react-dom": "^16.13.1",
 		"react-relay": "^9.1.0",
 		"react-relay-network-modern": "^4.7.2",
-		"relay-runtime": "^9.1.0"
+		"relay-runtime": "^9.1.0",
+		"styled-components": "^5.1.1"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.9.6",
@@ -41,6 +42,7 @@
 		"@types/react-dom": "^16.9.8",
 		"@types/react-relay": "^7.0.7",
 		"@types/relay-runtime": "^8.0.9",
+		"@types/styled-components": "^5.1.0",
 		"@types/webpack": "^4.41.12",
 		"@types/webpack-dev-server": "^3.10.1",
 		"@types/webpack-merge": "^4.1.5",
