@@ -3,20 +3,20 @@ import React from 'react';
 import { makeRouteConfig, Route } from 'found';
 import { graphql } from 'react-relay';
 
-import App from './App';
-import CreateItem from './CreateItem';
-import Group from './Group';
-import GroupList from './GroupList';
+import { AddItem } from './components/AddItem';
+import { Group } from './components/Group';
+import { GroupList } from './components/GroupList';
+import { Template } from './components/Template';
 
 const Home = () => <div>Home</div>;
 
 export const routeConfig = makeRouteConfig(
 	<Route
-		Component={App}
+		Component={Template}
 		query={graphql`
-			query routes_App_Query {
+			query routes_Template_Query {
 				viewer {
-					...App_viewer
+					...Template_viewer
 				}
 			}
 		`}
@@ -51,7 +51,7 @@ export const routeConfig = makeRouteConfig(
 				/>
 				<Route
 					path="create-item"
-					Component={CreateItem}
+					Component={AddItem}
 					prepareVariables={(params: any) => {
 						return {
 							id: params.groupId,
@@ -60,7 +60,7 @@ export const routeConfig = makeRouteConfig(
 					query={graphql`
 						query routes_CreateItem_Query($id: ID!) {
 							group: node(id: $id) {
-								...CreateItem_group
+								...AddItem_group
 							}
 						}
 					`}
