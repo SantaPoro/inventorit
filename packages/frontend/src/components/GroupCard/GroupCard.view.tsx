@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'found';
 import { createFragmentContainer, graphql } from 'react-relay';
 
-import { GroupCard_group } from '../__generated__/GroupCard_group.graphql';
+import { GroupCard_group } from './__generated__/GroupCard_group.graphql';
 
 interface Props {
 	group: GroupCard_group;
