@@ -11,13 +11,16 @@ interface Props {
 
 const GroupList: React.FC<Props> = ({ viewer }) => {
 	return (
-		<ul>
-			{viewer.groups.edges.map(edge => (
-				<li key={edge.node.id}>
-					<Link to={`/groups/${edge.node.id}`}>{edge.node.name}</Link>
-				</li>
-			))}
-		</ul>
+		<React.Fragment>
+			<h2>Groups</h2>
+			<ul>
+				{viewer.groups.edges.map(edge => (
+					<li key={edge.node.id}>
+						<Link to={`/groups/${edge.node.id}`}>{edge.node.name}</Link>
+					</li>
+				))}
+			</ul>
+		</React.Fragment>
 	);
 };
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { makeRouteConfig, Route } from 'found';
 import { graphql } from 'react-relay';
 
-import App from './App';
+import { Template } from './components/Template';
 import CreateItem from './CreateItem';
 import Group from './Group';
 import GroupList from './GroupList';
@@ -12,11 +12,11 @@ const Home = () => <div>Home</div>;
 
 export const routeConfig = makeRouteConfig(
 	<Route
-		Component={App}
+		Component={Template}
 		query={graphql`
-			query routes_App_Query {
+			query routes_Template_Query {
 				viewer {
-					...App_viewer
+					...Template_viewer
 				}
 			}
 		`}
