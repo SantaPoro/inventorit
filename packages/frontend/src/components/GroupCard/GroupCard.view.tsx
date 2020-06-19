@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Link } from 'found';
 import { createFragmentContainer, graphql } from 'react-relay';
 
 import { GroupCard_group } from '../__generated__/GroupCard_group.graphql';
@@ -9,7 +10,12 @@ interface Props {
 }
 
 const GroupCardView: React.FC<Props> = ({ group }) => {
-	return <div>{group.name}</div>;
+	return (
+		<div>
+			{group.name}
+			<Link to={`/groups/${group.id}`}>See moar</Link>
+		</div>
+	);
 };
 
 export default createFragmentContainer(GroupCardView, {

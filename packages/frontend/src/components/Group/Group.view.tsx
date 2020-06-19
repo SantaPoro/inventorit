@@ -3,14 +3,15 @@ import React from 'react';
 import { Link } from 'found';
 import { createFragmentContainer, graphql } from 'react-relay';
 
+import { ItemList } from '../ItemList';
+
 import { Group_group } from './__generated__/Group_group.graphql';
-import ItemList from './ItemList';
 
 interface Props {
 	group: Group_group;
 }
 
-const Group: React.FC<Props> = ({ group }) => {
+const GroupView: React.FC<Props> = ({ group }) => {
 	return (
 		<React.Fragment>
 			<div>{group.name}</div>
@@ -20,7 +21,7 @@ const Group: React.FC<Props> = ({ group }) => {
 	);
 };
 
-export default createFragmentContainer(Group, {
+export default createFragmentContainer(GroupView, {
 	group: graphql`
 		fragment Group_group on Group {
 			id
